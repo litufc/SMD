@@ -250,15 +250,15 @@ export default {
   inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: '#3F51B5',
-  topTabBarTextColor: '#b3c7f9',
-  topTabBarActiveTextColor: '#fff',
-  topTabBarBorderColor: '#fff',
-  topTabBarActiveBorderColor: '#fff',
+  tabDefaultBg: '#006CB4',
+  topTabBarTextColor: '#fff',
+  topTabBarActiveTextColor: '#EE8C26',
+  topTabBarBorderColor: '#EE8C26',
+  topTabBarActiveBorderColor: '#EE8C26',
 
   // Tabs
-  tabBgColor: '#F8F8F8',
-  tabFontSize: 15,
+  tabBgColor: '#fff',
+  tabFontSize: 16,
 
   // Text
   textColor: '#000',

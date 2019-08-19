@@ -5,6 +5,7 @@ import { Container, Content } from 'native-base';
 import AppStyles from '../global';
 import Toolbar from '../Components/Toolbar';
 import Tabbar from '../Components/Tabbar';
+import ScrollableTabs from '../Components/ScrollableTabs'
 
 export default class Home extends Component {
     constructor(props){
@@ -22,6 +23,7 @@ export default class Home extends Component {
                     iconRight={true}
                     iconLeft={false}
                 /> 
+                <ScrollableTabs/>
                 <Content></Content>
                 {/* <ScrollView style={styles.container}>
 

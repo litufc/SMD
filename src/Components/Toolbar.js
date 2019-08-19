@@ -12,7 +12,7 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
         header: {
             backgroundColor: background,
             elevation: 0,
-            height: 70
+            height: 56
         },
         containerTitle: {
             alignItems: "center",

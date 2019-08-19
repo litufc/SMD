@@ -17,6 +17,10 @@ const Tabbar = ({ active }) => {
                     </Button>
                     <Button vertical>
                         <Icon type="FontAwesome5" name="key" style={styles.icon} />
+                        <Text style={styles.text}>Chaves</Text>
+                    </Button>
+                    <Button vertical>
+                        <Icon type="FontAwesome5" name="key" style={styles.icon} />
                         <Text style={styles.text}>Recursos</Text>
                     </Button>
                     <Button vertical>
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontFamily: 'FontBold',
-        fontSize: 16
+        fontSize: 11
     }
 });
 
