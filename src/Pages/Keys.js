@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
 import { Container, Content } from 'native-base';
 
 import AppStyles from '../global';
@@ -10,6 +9,28 @@ import FixedTabs from '../Components/FixedTabs'
 export default class Keys extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            //Lista com todos as chaves da secretaria e suas respectivas disponibilidades
+            tabOne: [
+                {title: "Sala 01", status: false},
+                {title: "Sala 02", status: true},
+                {title: "Sala 03", status: false},
+                {title: "Laboratório 01", status: true},
+                {title: "Laboratório 02", status: true},
+                {title: "Laboratório P&D 01", status: false},
+                {title: "Laboratório P&D 02", status: true}
+            ],
+            //Lista com todos as chaves da recepção e suas respectivas disponibilidades
+            tabTwo: [
+                {title: "Sala 01", status: true},
+                {title: "Sala 02", status: true},
+                {title: "Sala 03", status: true},
+                {title: "Laboratório 01", status: false},
+                {title: "Laboratório 02", status: true},
+                {title: "Laboratório P&D 01", status: false},
+                {title: "Laboratório P&D 02", status: false}
+            ]
+        }
     }
 
     render(){
@@ -24,14 +45,12 @@ export default class Keys extends Component {
                     iconLeft={false}
                 />
                 
-                <Content>
                 <FixedTabs
                     tabs={{tab1: "Secretaria", tab2: "Recepção"}}
+                    contentTabOne={this.state.tabOne}
+                    contentTabTwo={this.state.tabTwo}
                 />
-                </Content>
-                {/* <ScrollView style={styles.container}>
 
-                </ScrollView> */}
                 <Tabbar
                     active="Keys"
                 />

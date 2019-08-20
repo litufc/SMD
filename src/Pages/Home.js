@@ -24,10 +24,6 @@ export default class Home extends Component {
                     iconLeft={false}
                 /> 
                 <ScrollableTabs/>
-                <Content></Content>
-                {/* <ScrollView style={styles.container}>
-
-                </ScrollView> */}
                 <Tabbar
                     active="Home"
                 />
