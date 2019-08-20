@@ -11,7 +11,7 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
         },
         header: {
             backgroundColor: background,
-            elevation: 0,
+            elevation: 5,
             height: 56
         },
         containerTitle: {
