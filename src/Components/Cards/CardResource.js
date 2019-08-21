@@ -33,11 +33,12 @@ const styles = StyleSheet.create({
     card:{
         marginLeft: 16,
         marginRight: 16,
-        marginTop: 16,
+        marginTop: 10,
         borderRadius: 10
     },
     cardItem: {
-        padding: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
         borderRadius: 10
     },
     textCard: {

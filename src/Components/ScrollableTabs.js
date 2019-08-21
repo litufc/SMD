@@ -3,6 +3,8 @@ import { Tab, Tabs, Text, ScrollableTab, StyleProvider, Content } from 'native-b
 import getTheme from '../../native-base-theme/components';
 import material from '../../native-base-theme/variables/material';
 
+import AccordionClassroom from './Cards/AccordionClassroom';
+
 export default class ScrollableTabs extends Component {
   render() {
     return (
@@ -10,7 +12,7 @@ export default class ScrollableTabs extends Component {
             <Content>
                 <Tabs renderTabBar={()=> <ScrollableTab />}>
                     <Tab heading="2ª Feira">
-                        <Text>1</Text>
+                        <AccordionClassroom />
                     </Tab>
                     <Tab heading="3ª Feira">
                         <Text>2</Text>
