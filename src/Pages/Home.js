@@ -22,6 +22,7 @@ export default class Home extends Component {
                     iconColor={AppStyles.colour.secundaryColor}
                     iconRight={true}
                     iconLeft={false}
+                    onPressRight={() => this.props.navigation.navigate('SearchLocations')}
                 /> 
                 <ScrollableTabs/>
                 <Tabbar

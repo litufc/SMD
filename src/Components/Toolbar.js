@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Header, Body, Title, Left, Right, Icon } from 'native-base';
 
-const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight, onPress }) => {
+const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight, onPressLeft, onPressRight }) => {
     const styles = StyleSheet.create({
         titleHeader: {
             fontFamily: 'FontBold',
@@ -36,7 +36,7 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
         <Header style={styles.header}>
             <Left style={styles.leftContainer}>
                 {iconLeft &&
-                    <TouchableOpacity onPress={onPress}>
+                    <TouchableOpacity onPress={onPressLeft}>
                         <Icon type="FontAwesome" name="arrow-left" style={styles.iconBack} />
                     </TouchableOpacity>
                 }
@@ -46,7 +46,7 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
             </Body>
             <Right style={styles.rightContainer}>
                 {iconRight &&
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={onPressRight}>
                         <Icon type="FontAwesome" name="search" style={styles.iconBack} />
                     </TouchableOpacity>
                 }

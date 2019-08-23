@@ -4,36 +4,102 @@ import { Container, Header, Content, Icon, Accordion, Text, View, Grid, Col, Bad
 import AppStyles from '../../global.js';
 
 const dataArray = [
-  { title: "Sala 01", content: "Conteudo do accordion", focus: "14:00 às 16:00 - Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro" },
-  { title: "Sala 02", content: "Conteudo do accordion", focus: "14:00 às 16:00 - Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro" },
-  { title: "Sala 03", content: "Conteudo do accordion", focus: "14:00 às 16:00 - Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro" }
+  { title: "Sala 01", schedules: [
+                              {start: 8, end: 10, description: ""},
+                              {start: 10, end: 12, description: "Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro"},
+                              {start: 12, end: 14, description: "Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro"},
+                              {start: 20, end: 22, description: "Hellooooo"},
+                              {start: 22, end: 24, description: "Hellooooo"}
+                            ]}
 ];
 
 export default class AccordionClassroom extends Component {
   _renderHeader(item, expanded) { //cabeçalho do accordion
+    let hours = new Date().getHours(); 
     return (
       <Card style={styles.card}>
           <Grid style={{alignItems: 'center'}}>
             <Col style={{width:'60%'}}>
-                <Text style={styles.textCardBlocked} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.textCard} numberOfLines={1}>{item.title}</Text>
             </Col>
             <Col style={{flexDirection: 'row-reverse'}}>
                 {expanded
                   ? <Icon style={styles.iconExpanded} name="remove-circle" />
                   : <Icon style={styles.iconExpanded} name="add-circle" />}
-
-                <Badge style={styles.badge}>
-                    <Text style={styles.textBadge}>Ocupada</Text>
-                </Badge>
+                
+                {item.schedules.map((id) => 
+                  <>
+                    {id.start <= hours && hours < id.end &&
+                      <>
+                        {id.description !== "" &&
+                          <Badge style={styles.badge}>
+                              <Text style={styles.textBadge}>Ocupada</Text>
+                          </Badge>
+                        }
+                      </>
+                    }
+                  </>
+                )}
             </Col>
           </Grid>
 
           {/* Subtítulo */}
           {!expanded && 
-            <Text style={styles.textFocus}>{item.focus}</Text>}
-
+            <>
+              {item.schedules.map((id) => 
+                <>
+                  {id.start <= hours && hours < id.end &&
+                    <>
+                      {id.description === "" ?
+                        <Text style={styles.textFocus}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
+                      :
+                        <Text style={styles.textFocus}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
+                      }
+                    </>
+                    
+                  }
+                </>
+              )}
+            </>
+          }
           {/* Conteúdo */}
-          {expanded && <Text>askldjasdljadkladjaskldjasdlkjsdkladjlaskfjaskldjasdlkasjdklasfjaskldajsdklasjdaklsdjasldkjadklasjdlkasjdlaksdjasldkjasdlkjasdkljasdklasjdalksdjaskldjasdklasjdklasdjaskldjasdl</Text>}
+          {expanded && 
+            <>
+              {item.schedules.map((id) => 
+                <>
+                  {id.start <= hours && hours < id.end ? (
+                    <>
+                      {id.description === "" ?
+                        <Text style={styles.descriptionFocus}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
+                      :
+                        <Text style={styles.descriptionFocus}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
+                      }                    
+                    </>
+                  ):(
+                    <>
+                      {id.end <= hours ?
+                        <>
+                          {id.description === "" ?
+                            <Text style={styles.descriptionDisable}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
+                          :
+                            <Text style={styles.descriptionDisable}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
+                          }
+                        </>
+                        :
+                        <>
+                          {id.description === "" ?
+                            <Text style={styles.description}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
+                          :
+                            <Text style={styles.description}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
+                          }
+                        </>
+                      }
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          }
       </Card>
     );
   }
@@ -70,11 +136,6 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: AppStyles.colour.primaryColor
   },
-  textCardBlocked:{
-      fontFamily: 'FontBold',
-      fontSize: 20,
-      color: AppStyles.colour.primaryColor
-  },
   badge:{
       backgroundColor: AppStyles.colour.alertColor,
       marginRight: 8
@@ -91,7 +152,30 @@ const styles = StyleSheet.create({
   },
   textFocus: {
       color: AppStyles.colour.secundaryColor,
-      fontSize: 14,
-      marginTop: 5
-  }
+      fontSize: 16,
+      marginTop: 5,
+      fontFamily: 'FontBold'
+  },
+  description:{
+      color: AppStyles.colour.text,
+      fontSize: 16,
+      paddingVertical: 8,
+      borderBottomWidth: 1,
+      borderBottomColor: AppStyles.colour.text
+  },
+  descriptionFocus:{
+      color: AppStyles.colour.secundaryColor,
+      fontSize: 16,
+      paddingVertical: 8,
+      fontFamily: 'FontBold',
+      borderBottomWidth: 1,
+      borderBottomColor: AppStyles.colour.secundaryColor
+  },
+  descriptionDisable:{
+    color: '#D1D1D1',
+    fontSize: 16,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D1D1D1'
+  },
 });
