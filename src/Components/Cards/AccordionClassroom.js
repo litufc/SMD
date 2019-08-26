@@ -109,7 +109,7 @@ export default class AccordionClassroom extends Component {
   render() {
     return (
       <Container>
-        <Content padder style={{ backgroundColor: "#fff" }}>
+        <Content padder style={{ backgroundColor: AppStyles.colour.background }}>
           <Accordion
             dataArray={dataArray}
             animation={true}

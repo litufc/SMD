@@ -36,6 +36,7 @@ export default class App extends React.Component{
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Constants.statusBarHeight
+        paddingTop: Constants.statusBarHeight,
+        backgroundColor: '#006CB4'
     }
 })

@@ -35,7 +35,7 @@ export default class Resoucers extends Component {
                     iconLeft={false}
                 />
                 
-                <Content>
+                <Content style={{backgroundColor: AppStyles.colour.background}}>
                     {this.state.cards.map((card) =>
                         <CardResource
                             title={card.title}
