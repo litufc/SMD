@@ -23,6 +23,7 @@ export default class Home extends Component {
                     iconRight={true}
                     iconLeft={false}
                     onPressRight={() => this.props.navigation.navigate('SearchLocations')}
+                    onPressTitle={() => this.props.navigation.navigate('SearchLocations')}
                 /> 
                 <ScrollableTabs/>
                 <Tabbar

@@ -2,12 +2,17 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Header, Body, Title, Left, Right, Icon } from 'native-base';
 
-const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight, onPressLeft, onPressRight }) => {
+const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight, onPressLeft, onPressRight, onPressTitle }) => {
     const styles = StyleSheet.create({
         titleHeader: {
             fontFamily: 'FontBold',
             color: textColor,
             fontSize: 20
+        },
+        iconTitle:{
+            fontSize: 18,
+            color: '#fff',
+            marginLeft: 5
         },
         header: {
             backgroundColor: background,
@@ -15,7 +20,8 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
             height: 56
         },
         containerTitle: {
-            alignItems: "center",
+            flexDirection: 'row',
+            alignItems: 'center'
         },
         leftContainer: {
             flex: 0,
@@ -41,8 +47,15 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
                     </TouchableOpacity>
                 }
             </Left>
-            <Body style={styles.containerTitle}>
-                <Title style={styles.titleHeader}>{title}</Title>
+            <Body>
+                {onPressTitle ?
+                    <TouchableOpacity onPress={onPressTitle} style={styles.containerTitle}>
+                        <Title style={styles.titleHeader}>{title}</Title>
+                        <Icon type="FontAwesome5" name="sort-down" style={styles.iconTitle}/>
+                    </TouchableOpacity>
+                :
+                    <Title style={styles.titleHeader}>{title}</Title>
+                }
             </Body>
             <Right style={styles.rightContainer}>
                 {iconRight &&
