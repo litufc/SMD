@@ -4,6 +4,7 @@ import Home from './Pages/Home';
 import Keys from './Pages/Keys';
 import Resources from './Pages/Resources';
 import SearchLocations from './Pages/SearchLocations';
+import Profile from './Pages/Profile';
 
 const Routes = createAppContainer(
     createSwitchNavigator({
@@ -11,6 +12,7 @@ const Routes = createAppContainer(
         Keys,
         Resources,
         SearchLocations,
+        Profile
     })
 );
 

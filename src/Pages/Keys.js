@@ -4,7 +4,8 @@ import { Container, Content } from 'native-base';
 import AppStyles from '../global';
 import Toolbar from '../Components/Toolbar';
 import Tabbar from '../Components/Tabbar';
-import FixedTabs from '../Components/FixedTabs'
+import FixedTabs from '../Components/FixedTabs';
+import CardResource from '../Components/Cards/CardResource';
 
 export default class Keys extends Component {
     constructor(props){
@@ -34,6 +35,26 @@ export default class Keys extends Component {
     }
 
     render(){
+        const _renderTab1 = 
+            <>
+                {this.state.tabOne.map((card) => 
+                    <CardResource
+                        title={card.title}
+                        status={card.status}
+                    />
+                )}
+            </>
+
+        const _renderTab2 = 
+            <>
+                {this.state.tabTwo.map((card) => 
+                    <CardResource
+                        title={card.title}
+                        status={card.status}
+                    />
+                )}
+            </>
+            
         return(
             <Container>
                 <Toolbar 
@@ -47,8 +68,8 @@ export default class Keys extends Component {
                 
                 <FixedTabs
                     tabs={{tab1: "Secretaria", tab2: "Recepção"}}
-                    contentTabOne={this.state.tabOne}
-                    contentTabTwo={this.state.tabTwo}
+                    contentTabOne={_renderTab1}
+                    contentTabTwo={_renderTab2}
                 />
 
                 <Tabbar
