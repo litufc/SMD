@@ -55,7 +55,7 @@ export default class Profile extends Component {
                 />
 
                 <Tabbar
-                    active="Keys"
+                    active="Profile"
                 />
             </Container>
         );

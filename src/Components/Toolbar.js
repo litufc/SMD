@@ -21,7 +21,8 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
         },
         containerTitle: {
             flexDirection: 'row',
-            alignItems: 'center'
+            alignItems: 'center',
+            justifyContent: 'center'
         },
         leftContainer: {
             flex: 0,
@@ -47,7 +48,7 @@ const Toolbar = ({ title, textColor, background, iconColor, iconLeft, iconRight,
                     </TouchableOpacity>
                 }
             </Left>
-            <Body>
+            <Body style={styles.containerTitle}>
                 {onPressTitle ?
                     <TouchableOpacity onPress={onPressTitle} style={styles.containerTitle}>
                         <Title style={styles.titleHeader}>{title}</Title>
