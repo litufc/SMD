@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         color: AppStyles.colour.text
     },
     value: {
-        fontFamily: 'FontBold',
         fontSize: 16,
         color: AppStyles.colour.primaryColor,
         width: 200

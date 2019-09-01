@@ -16,7 +16,8 @@ const CardSimple = ( { active, children } ) => {
             backgroundColor: '#FFF'
         },
         cardActive: {
-            backgroundColor: AppStyles.colour.secundaryColor
+            backgroundColor: AppStyles.colour.secundaryColor,
+            borderColor: AppStyles.colour.secundaryColor
         },
         labelCard: {
             fontFamily: 'FontBold',

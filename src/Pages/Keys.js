@@ -13,23 +13,23 @@ export default class Keys extends Component {
         this.state = {
             //Lista com todos as chaves da secretaria e suas respectivas disponibilidades
             tabOne: [
-                {title: "Sala 01", status: false},
-                {title: "Sala 02", status: true},
-                {title: "Sala 03", status: false},
-                {title: "Laboratório 01", status: true},
-                {title: "Laboratório 02", status: true},
-                {title: "Laboratório P&D 01", status: false},
-                {title: "Laboratório P&D 02", status: true}
+                {title: "Sala 01", status: false, type: "key"},
+                {title: "Sala 02", status: true, type: "key"},
+                {title: "Sala 03", status: false, type: "key"},
+                {title: "Laboratório 01", status: true, type: "key"},
+                {title: "Laboratório 02", status: true, type: "key"},
+                {title: "Laboratório P&D 01", status: false, type: "key"},
+                {title: "Laboratório P&D 02", status: true, type: "key"}
             ],
             //Lista com todos as chaves da recepção e suas respectivas disponibilidades
             tabTwo: [
-                {title: "Sala 01", status: true},
-                {title: "Sala 02", status: true},
-                {title: "Sala 03", status: true},
-                {title: "Laboratório 01", status: false},
-                {title: "Laboratório 02", status: true},
-                {title: "Laboratório P&D 01", status: false},
-                {title: "Laboratório P&D 02", status: false}
+                {title: "Sala 01", status: true, type: "key"},
+                {title: "Sala 02", status: true, type: "key"},
+                {title: "Sala 03", status: true, type: "key"},
+                {title: "Laboratório 01", status: false, type: "key"},
+                {title: "Laboratório 02", status: true, type: "key"},
+                {title: "Laboratório P&D 01", status: false, type: "key"},
+                {title: "Laboratório P&D 02", status: false, type: "key"}
             ]
         }
     }
@@ -39,8 +39,7 @@ export default class Keys extends Component {
             <>
                 {this.state.tabOne.map((card) => 
                     <CardResource
-                        title={card.title}
-                        status={card.status}
+                        resource={card}
                     />
                 )}
             </>
@@ -49,8 +48,7 @@ export default class Keys extends Component {
             <>
                 {this.state.tabTwo.map((card) => 
                     <CardResource
-                        title={card.title}
-                        status={card.status}
+                        resource={card}
                     />
                 )}
             </>

@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Container, Header, Content, Icon, Accordion, Text, View, Grid, Col, Badge, Card, CardItem } from 'native-base';
+import { Container, Content, Icon, Accordion, Text, View, Grid, Col, Badge, Card } from 'native-base';
 import AppStyles from '../../global.js';
 
-const dataArray = [
-  { title: "Sala 01", schedules: [
-                              {start: 8, end: 10, description: ""},
-                              {start: 10, end: 12, description: "Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro"},
-                              {start: 12, end: 14, description: "Introdução à Sistemas e Mídias Digitais - Prof. Levi Bayde Ribeiro"},
-                              {start: 20, end: 22, description: "Hellooooo"},
-                              {start: 22, end: 24, description: "Hellooooo"}
-                            ]}
-];
-
 export default class AccordionClassroom extends Component {
+
+  state = {
+    dataArray : [
+      { title: "Sala 01", schedules: 
+        [
+          {start: "15:30:01", end: "17:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+          {start: "18:00:01", end: "18:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+          {start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
+        ]
+      },
+      { title: "Sala 02", schedules: 
+        [
+          {start: "15:30:00", end: "17:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+          {start: "18:00:00", end: "18:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+          {start: "18:30:00", end: "20:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+          {start: "20:00:00", end: "21:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+          {start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
+        ]
+      }
+    ]
+  }
+
   _renderHeader(item, expanded) { //cabeçalho do accordion
-    let hours = new Date().getHours(); 
+    let hours = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+    let isBusy = false;
+    let actual;
+
+    //verifica se tem algo acontecendo na sala no momento atual
+    for(var i = 0; i < item.schedules.length; i++)
+      if(Date.parse('01/01/2011 '+item.schedules[i].start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+item.schedules[i].end)){
+        isBusy = true;
+        actual = i;
+      }
+      
     return (
       <Card style={styles.card}>
           <Grid style={{alignItems: 'center'}}>
@@ -26,92 +48,58 @@ export default class AccordionClassroom extends Component {
                 {expanded
                   ? <Icon style={styles.iconExpanded} name="remove-circle" />
                   : <Icon style={styles.iconExpanded} name="add-circle" />}
-                
-                {item.schedules.map((id) => 
-                  <>
-                    {id.start <= hours && hours < id.end &&
-                      <>
-                        {id.description !== "" &&
-                          <Badge style={styles.badge}>
-                              <Text style={styles.textBadge}>Ocupada</Text>
-                          </Badge>
-                        }
-                      </>
-                    }
-                  </>
-                )}
+
+                {isBusy ?
+                    <Badge style={styles.badgeBusy}>
+                        <Text style={styles.textBadge}>Ocupada</Text>
+                    </Badge>
+                  :
+                    <Badge style={styles.badgeFree}>
+                        <Text style={styles.textBadge}>Livre</Text>
+                    </Badge>
+                }
             </Col>
           </Grid>
 
           {/* Subtítulo */}
           {!expanded && 
             <>
-              {item.schedules.map((id) => 
-                <>
-                  {id.start <= hours && hours < id.end &&
-                    <>
-                      {id.description === "" ?
-                        <Text style={styles.textFocus}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
-                      :
-                        <Text style={styles.textFocus}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
-                      }
-                    </>
-                    
-                  }
-                </>
-              )}
-            </>
-          }
-          {/* Conteúdo */}
-          {expanded && 
-            <>
-              {item.schedules.map((id) => 
-                <>
-                  {id.start <= hours && hours < id.end ? (
-                    <>
-                      {id.description === "" ?
-                        <Text style={styles.descriptionFocus}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
-                      :
-                        <Text style={styles.descriptionFocus}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
-                      }                    
-                    </>
-                  ):(
-                    <>
-                      {id.end <= hours ?
-                        <>
-                          {id.description === "" ?
-                            <Text style={styles.descriptionDisable}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
-                          :
-                            <Text style={styles.descriptionDisable}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
-                          }
-                        </>
-                        :
-                        <>
-                          {id.description === "" ?
-                            <Text style={styles.description}>{id.start + ":00 às " + id.end + ":00 - N/A"}</Text>
-                          :
-                            <Text style={styles.description}>{id.start + ":00 às " + id.end + ":00 - " + id.description}</Text>
-                          }
-                        </>
-                      }
-                    </>
-                  )}
-                </>
-              )}
+              {isBusy &&
+                <Text style={styles.textFocus}>{item.schedules[actual].start.split(":")[0] + ":" + item.schedules[actual].start.split(":")[1] + " às " + item.schedules[actual].end.split(":")[0] + ":" + item.schedules[actual].end.split(":")[1] + " - " + item.schedules[actual].description + " - " + item.schedules[actual].responsible}</Text>
+              }
             </>
           }
       </Card>
     );
   }
   _renderContent(item) {
-    return (<></>);
+    let hours = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(); 
+    return (
+      <View style={styles.content}>
+        {item.schedules.map((id) => 
+          <>
+            {Date.parse('01/01/2011 '+id.start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+id.end) ? (
+              <Text style={styles.descriptionFocus}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+            ):(
+              <>
+                {Date.parse('01/01/2011 '+id.end) <= Date.parse('01/01/2011 '+hours) ?
+                    <Text style={styles.descriptionDisable}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+                  :
+                    <Text style={styles.description}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+                }
+              </>
+            )}
+          </>
+        )}
+      </View>
+    );
   }
   render() {
     return (
       <Container>
         <Content padder style={{ backgroundColor: AppStyles.colour.background }}>
           <Accordion
-            dataArray={dataArray}
+            dataArray={this.state.dataArray}
             animation={true}
             expanded={true}
             renderHeader={this._renderHeader}
@@ -127,7 +115,7 @@ export default class AccordionClassroom extends Component {
 const styles = StyleSheet.create({
   card:{
       borderRadius: 10,
-      paddingVertical: 8,
+      paddingVertical: 12,
       paddingHorizontal: 16,
       marginBottom: 10
   },
@@ -136,9 +124,15 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: AppStyles.colour.primaryColor
   },
-  badge:{
+  badgeBusy:{
       backgroundColor: AppStyles.colour.alertColor,
-      marginRight: 8
+      marginRight: 8,
+      width: 90
+  },
+  badgeFree:{
+      backgroundColor: AppStyles.colour.secundaryColor,
+      marginRight: 8,
+      width: 90
   },
   textBadge:{
       color: '#fff',
@@ -150,11 +144,16 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       color: AppStyles.colour.secundaryColor
   },
+  content:{
+      backgroundColor: '#FFF',
+      padding: 12,
+      paddingTop: 0,
+      marginBottom: 10
+  },
   textFocus: {
       color: AppStyles.colour.secundaryColor,
       fontSize: 16,
-      marginTop: 5,
-      fontFamily: 'FontBold'
+      marginTop: 5
   },
   description:{
       color: AppStyles.colour.text,
@@ -167,15 +166,14 @@ const styles = StyleSheet.create({
       color: AppStyles.colour.secundaryColor,
       fontSize: 16,
       paddingVertical: 8,
-      fontFamily: 'FontBold',
       borderBottomWidth: 1,
       borderBottomColor: AppStyles.colour.secundaryColor
   },
   descriptionDisable:{
-    color: '#D1D1D1',
-    fontSize: 16,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#D1D1D1'
+      color: '#D1D1D1',
+      fontSize: 16,
+      paddingVertical: 8,
+      borderBottomWidth: 1,
+      borderBottomColor: '#D1D1D1'
   },
 });

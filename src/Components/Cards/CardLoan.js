@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
         marginTop: 2
     },
     dateValue:{
-        fontFamily: 'FontBold',
         fontSize: 14,
         color: AppStyles.colour.secundaryColor,
         marginTop: 2

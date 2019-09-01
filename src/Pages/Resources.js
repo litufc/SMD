@@ -12,13 +12,13 @@ export default class Resoucers extends Component {
         this.state = {
             //Lista com todos os recursos e suas respectivas disponibilidades
             cards: [
-                {title: "Projetor 1", status: false},
-                {title: "Projetor 2", status: true},
-                {title: "Projetor 3", status: false},
-                {title: "Máquina fotográfica", status: true},
-                {title: "Mesa digitalizadora", status: true},
-                {title: "Cabo USB 1", status: false},
-                {title: "Cabo USB 2", status: true}
+                {title: "Projetor 1", status: false, type: "resource"},
+                {title: "Projetor 2", status: true, type: "resource"},
+                {title: "Projetor 3", status: false, type: "resource"},
+                {title: "Máquina fotográfica", status: true, type: "resource"},
+                {title: "Mesa digitalizadora", status: true, type: "resource"},
+                {title: "Cabo USB 1", status: false, type: "resource"},
+                {title: "Cabo USB 2", status: true, type: "resource"}
             ]
         }
     }
@@ -38,8 +38,7 @@ export default class Resoucers extends Component {
                 <Content style={{backgroundColor: AppStyles.colour.background}}>
                     {this.state.cards.map((card) =>
                         <CardResource
-                            title={card.title}
-                            status={card.status}
+                            resource={card}
                         />
                     )}
                 </Content>

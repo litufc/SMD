@@ -1,32 +1,62 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Body, Text, Badge, Grid, Col } from 'native-base';
-import AppStyles from '../../global.js'
+import AppStyles from '../../global.js';
 
-const CardResource = ( { title, status } ) => {
-    return(
-        <Card style={styles.card}>
-            <CardItem style={styles.cardItem}>
-                <Body>
-                    {status ? (
-                        <Text style={styles.textCard} numberOfLines={1}>{title}</Text>
-                    ):(
-                        <Grid>
-                            <Col style={{width:'70%'}}>
-                                <Text style={styles.textCardBlocked} numberOfLines={1}>{title}</Text>
-                            </Col>
-                            <Col>
-                                <Badge style={{ backgroundColor: AppStyles.colour.alertColor, alignSelf: 'flex-end'}}>
-                                    <Text style={styles.textBadge}>Ocupada</Text>
-                                </Badge>
-                            </Col>
-                        </Grid>
-                    )}
-                    
-                </Body>
-            </CardItem>
-        </Card>
-    )
+import ModalRequestLoan from '../Modals/ModalRequestLoan';
+
+export default class CardResource extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: false
+        };
+    }
+    
+    handleModal = () => {
+        if(this.props.resource.status)
+            this.setState({ showModal: true });
+    };
+
+    onChangeState = () => {
+        this.setState({ showModal: false });
+    };
+    
+    render(){
+        const { resource } = this.props;
+        return(
+            <>
+                <TouchableOpacity onPress={this.handleModal}>
+                    <Card style={styles.card}>
+                        <CardItem style={styles.cardItem}>
+                            <Body>
+                                {resource.status ? (
+                                    <Text style={styles.textCard} numberOfLines={1}>{resource.title}</Text>
+                                ):(
+                                    <Grid>
+                                        <Col style={{width:'70%'}}>
+                                            <Text style={styles.textCardBlocked} numberOfLines={1}>{resource.title}</Text>
+                                        </Col>
+                                        <Col>
+                                            <Badge style={{ backgroundColor: AppStyles.colour.alertColor, alignSelf: 'flex-end'}}>
+                                                <Text style={styles.textBadge}>Ocupada</Text>
+                                            </Badge>
+                                        </Col>
+                                    </Grid>
+                                )}
+                                
+                            </Body>
+                        </CardItem>
+                    </Card>
+                </TouchableOpacity>
+                <ModalRequestLoan 
+                    show={this.state.showModal}
+                    onChangeState={this.onChangeState}
+                    resource={resource}
+                />
+            </>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -57,5 +87,3 @@ const styles = StyleSheet.create({
         fontSize: 12
     }
 });
-
-export default CardResource;
