@@ -9,7 +9,7 @@ const TextInput = ( { label, textColor, type } ) => {
             borderWidth: 1,
             borderRadius: 30,
             height: 40,
-            marginTop: 20
+            marginTop: 25
         },
         item: {
             borderBottomWidth: 0,

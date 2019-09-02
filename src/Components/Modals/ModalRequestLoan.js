@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Modal, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import AppStyles from '../../global';
+import TextArea from '../Inputs/TextArea';
 
 export default class ModalRequestLoan extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ export default class ModalRequestLoan extends Component {
                   </Text>
                 }
                 
+                <TextArea placeholder="Alguma observação?" textColor={AppStyles.colour.text} />
                 
                 <View style={styles.viewButtons}>
                   <TouchableOpacity>
