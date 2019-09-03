@@ -6,6 +6,7 @@ import AppStyles from '../global';
 import Toolbar from '../Components/Toolbar';
 import TextInput from '../Components/Inputs/TextInput';
 import ButtonStatusResource from '../Components/Inputs/ButtonStatusResource';
+import ButtonPrimary from '../Components/Inputs/ButtonPrimary';
 
 export default class SearchLocations extends Component {
     constructor(props){
@@ -59,19 +60,24 @@ export default class SearchLocations extends Component {
                             type="text"
                         />
 
-                        {this.state.freeState ?
-                            <ButtonStatusResource label="Livre" status={true} onClick={this.freeHandle}/>
-                        :
-                            <ButtonStatusResource label="Livre" status={false} onClick={this.freeHandle}/>
-                        }
+                        <Text style={styles.subtitle}>Estado da Sala</Text>
 
-                        {this.state.blockState ?
-                            <ButtonStatusResource label="Ocupada" status={true} onClick={this.blockHundle}/>
-                        :
-                            <ButtonStatusResource label="Ocupada" status={false} onClick={this.blockHundle}/>
-                        }
-                        
-                        
+                        <View style={{flexDirection: 'row', marginBottom: 16}}>
+                            {this.state.freeState ?
+                                <ButtonStatusResource label="Livre" status={true} onClick={this.freeHandle}/>
+                            :
+                                <ButtonStatusResource label="Livre" status={false} onClick={this.freeHandle}/>
+                            }
+
+                            {this.state.blockState ?
+                                <ButtonStatusResource label="Ocupada" status={true} onClick={this.blockHundle}/>
+                            :
+                                <ButtonStatusResource label="Ocupada" status={false} onClick={this.blockHundle}/>
+                            }
+                        </View>
+
+                        <ButtonPrimary onPress={()=>alert("clicou")}>Concluir</ButtonPrimary>
+
                     </Card>
                     
                 </Content>
@@ -99,5 +105,12 @@ const styles = StyleSheet.create({
         fontSize: 20, 
         color: AppStyles.colour.primaryColor,
         textAlign: 'center'
+    },
+    subtitle: {
+        fontFamily: 'FontBold',
+        fontSize: 16,
+        color: AppStyles.colour.text,
+        marginTop: 16,
+        marginBottom: 5
     }
 });

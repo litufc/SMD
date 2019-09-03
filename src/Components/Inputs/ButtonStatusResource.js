@@ -11,7 +11,8 @@ const ButtonStatusResource = ( { label, status, onClick } ) => {
             borderRadius: 20,
             color: '#FFFFFF',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginRight: 16
         },
         buttonActive: {
             backgroundColor: AppStyles.colour.secundaryColor
