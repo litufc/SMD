@@ -21,7 +21,7 @@ export default class Weeks extends Component {
                     iconColor={AppStyles.colour.secundaryColor}
                     iconRight={false}
                     iconLeft={true}
-                    onPressLeft={() => this.props.navigation.navigate('Home')}
+                    onPressLeft={() => this.props.navigation.goBack()}
                 /> 
                 <Content style={styles.container}>
                     <CardSimple active={true}>05/08/2019 à 09/08/2019</CardSimple>

@@ -14,7 +14,12 @@ export default class SearchLocations extends Component {
         this.state = {
             freeState: false,
             blockState: false,
-            title: ''
+            title: '',
+            locationName: '',
+            keyName: '',
+            resourceName: '',
+            teacherName: '',
+            className: ''
         }
     }
 
@@ -58,6 +63,7 @@ export default class SearchLocations extends Component {
 
     render(){
         const searchFor = this.props.navigation.getParam('searchFor');
+        const { resourceName, teacherName, keyName, locationName, className } = this.state;
 
         const searhLocation =
             <>
@@ -65,16 +71,22 @@ export default class SearchLocations extends Component {
                     label="Nome do professor"
                     textColor={AppStyles.colour.primaryColor}
                     type="text"
+                    textValue={teacherName}
+                    onChange={(teacherName) => this.setState({teacherName})}
                 />
                 <TextInput
                     label="Nome da disciplina"
                     textColor={AppStyles.colour.primaryColor}
                     type="text"
+                    textValue={className}
+                    onChange={(className) => this.setState({className})}
                 />
                 <TextInput
                     label="Nome da sala"
                     textColor={AppStyles.colour.primaryColor}
                     type="text"
+                    textValue={locationName}
+                    onChange={(locationName) => this.setState({locationName})}
                 />
 
                 <Text style={styles.subtitle}>Estado da Sala</Text>
@@ -102,6 +114,8 @@ export default class SearchLocations extends Component {
                     label="Nome da chave"
                     textColor={AppStyles.colour.primaryColor}
                     type="text"
+                    textValue={keyName}
+                    onChange={(keyName) => this.setState({keyName})}
                 />
 
                 <Text style={styles.subtitle}>Estado da Chave</Text>
@@ -129,6 +143,8 @@ export default class SearchLocations extends Component {
                     label="Nome do recurso"
                     textColor={AppStyles.colour.primaryColor}
                     type="text"
+                    textValue={resourceName}
+                    onChange={(resourceName) => this.setState({resourceName})}
                 />
 
                 <Text style={styles.subtitle}>Estado do Recurso</Text>

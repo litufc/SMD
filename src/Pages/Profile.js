@@ -44,7 +44,7 @@ export default class Profile extends Component {
                     textColor="#FFFFFF" 
                     background={AppStyles.colour.primaryColor}
                     iconColor={AppStyles.colour.secundaryColor}
-                    iconRight={true}
+                    iconRight={false}
                     iconLeft={false}
                 />
                 

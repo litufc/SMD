@@ -76,7 +76,7 @@ export default class AccordionClassroom extends Component {
     let hours = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(); 
     return (
       <View style={styles.content}>
-        {item.schedules.map((id) => 
+        {item.schedules.map((id, index) => 
           <>
             {Date.parse('01/01/2011 '+id.start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+id.end) ? (
               <Text style={styles.descriptionFocus}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>

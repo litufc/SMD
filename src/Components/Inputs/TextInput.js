@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Item, Input, Label, View } from 'native-base';
 
-const TextInput = ( { label, textColor, type } ) => {
+const TextInput = ( { label, textColor, type, textValue, onChange } ) => {
     const styles = StyleSheet.create({
         borderInput: {
             borderColor: textColor,
@@ -30,10 +30,10 @@ const TextInput = ( { label, textColor, type } ) => {
             <Item floatingLabel style={styles.item}>
                 <Label style={styles.label}>{label}</Label>
                 {type === "text" &&
-                    <Input style={styles.input}/>
+                    <Input style={styles.input} value={textValue} onChangeText={onChange}/>
                 }
                 {type === "password" &&
-                    <Input style={styles.input} secureTextEntry={true}/>
+                    <Input style={styles.input} secureTextEntry={true} value={textValue} onChangeText={onChange}/>
                 }
             </Item>
         </View>
