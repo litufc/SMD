@@ -5,10 +5,25 @@ import { Container, Content, View, Card, Text } from 'native-base';
 import AppStyles from '../global';
 import Toolbar from '../Components/Toolbar';
 import TextInput from '../Components/Inputs/TextInput';
+import ButtonStatusResource from '../Components/Inputs/ButtonStatusResource';
 
 export default class SearchLocations extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            freeState: false,
+            blockState: false
+        }
+    }
+
+    freeHandle = () => {
+        const aux = !this.state.freeState;
+        this.setState({freeState: aux});
+    }
+
+    blockHundle = () => {
+        const aux = !this.state.blockState;
+        this.setState({blockState: aux});
     }
 
     render(){
@@ -43,6 +58,20 @@ export default class SearchLocations extends Component {
                             textColor={AppStyles.colour.primaryColor}
                             type="text"
                         />
+
+                        {this.state.freeState ?
+                            <ButtonStatusResource label="Livre" status={true} onClick={this.freeHandle}/>
+                        :
+                            <ButtonStatusResource label="Livre" status={false} onClick={this.freeHandle}/>
+                        }
+
+                        {this.state.blockState ?
+                            <ButtonStatusResource label="Ocupada" status={true} onClick={this.blockHundle}/>
+                        :
+                            <ButtonStatusResource label="Ocupada" status={false} onClick={this.blockHundle}/>
+                        }
+                        
+                        
                     </Card>
                     
                 </Content>
