@@ -33,6 +33,7 @@ export default class Resoucers extends Component {
                     iconColor={AppStyles.colour.secundaryColor}
                     iconRight={true}
                     iconLeft={false}
+                    onPressRight={() => this.props.navigation.navigate('Search', {searchFor: 'resource'})}
                 />
                 
                 <Content style={{backgroundColor: AppStyles.colour.background}}>

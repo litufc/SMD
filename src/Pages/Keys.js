@@ -62,6 +62,7 @@ export default class Keys extends Component {
                     iconColor={AppStyles.colour.secundaryColor}
                     iconRight={true}
                     iconLeft={false}
+                    onPressRight={() => this.props.navigation.navigate('Search', {searchFor: 'key'})}
                 />
                 
                 <FixedTabs

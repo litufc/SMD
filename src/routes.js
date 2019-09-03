@@ -1,20 +1,23 @@
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 
 import Home from './Pages/Home';
 import Keys from './Pages/Keys';
 import Resources from './Pages/Resources';
-import SearchLocations from './Pages/SearchLocations';
+import Search from './Pages/Search';
 import Profile from './Pages/Profile';
 import Weeks from './Pages/Weeks';
 
 const Routes = createAppContainer(
-    createSwitchNavigator({
+    createStackNavigator({
         Home,
         Keys,
         Resources,
-        SearchLocations,
+        Search,
         Profile,
         Weeks
+    }, {
+        headerMode: 'none',
+        navigationOptions: {headerVisible: false,}
     })
 );
 
