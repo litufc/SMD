@@ -4,39 +4,25 @@ import { Container, Content, Icon, Accordion, Text, View, Grid, Col, Badge, Card
 import AppStyles from '../../global.js';
 
 export default class AccordionClassroom extends Component {
-
-  state = {
-    dataArray : [
-      { title: "Sala 01", schedules: 
-        [
-          {start: "15:30:01", end: "17:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
-          {start: "18:00:01", end: "18:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
-          {start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
-        ]
-      },
-      { title: "Sala 02", schedules: 
-        [
-          {start: "15:30:00", end: "17:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
-          {start: "18:00:00", end: "18:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
-          {start: "18:30:00", end: "20:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
-          {start: "20:00:00", end: "21:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
-          {start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
-        ]
-      }
-    ]
-  }
-
+  
   _renderHeader(item, expanded) { //cabeçalho do accordion
     let hours = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+    let dateActual = new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear(); 
     let isBusy = false;
+    let isNow = true;
     let actual;
 
     //verifica se tem algo acontecendo na sala no momento atual
-    for(var i = 0; i < item.schedules.length; i++)
-      if(Date.parse('01/01/2011 '+item.schedules[i].start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+item.schedules[i].end)){
+    for(var i = 0; i < item.schedules.length; i++){
+      if(Date.parse(dateActual + ' 00:00:00') != Date.parse(item.schedules[i].date + ' 00:00:00')){
+        isNow = false;
+        break;
+      }if(Date.parse('01/01/2011 '+item.schedules[i].start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+item.schedules[i].end)){
         isBusy = true;
         actual = i;
+        break;
       }
+    }
       
     return (
       <Card style={styles.card}>
@@ -48,15 +34,19 @@ export default class AccordionClassroom extends Component {
                 {expanded
                   ? <Icon style={styles.iconExpanded} name="remove-circle" />
                   : <Icon style={styles.iconExpanded} name="add-circle" />}
-
-                {isBusy ?
-                    <Badge style={styles.badgeBusy}>
-                        <Text style={styles.textBadge}>Ocupada</Text>
-                    </Badge>
-                  :
-                    <Badge style={styles.badgeFree}>
-                        <Text style={styles.textBadge}>Livre</Text>
-                    </Badge>
+                
+                {isNow &&
+                  <>
+                    {isBusy ?
+                        <Badge style={styles.badgeBusy}>
+                            <Text style={styles.textBadge}>Ocupada</Text>
+                        </Badge>
+                      :
+                        <Badge style={styles.badgeFree}>
+                            <Text style={styles.textBadge}>Livre</Text>
+                        </Badge>
+                    }
+                  </>
                 }
             </Col>
           </Grid>
@@ -74,21 +64,37 @@ export default class AccordionClassroom extends Component {
   }
   _renderContent(item) {
     let hours = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(); 
+    let dateActual = new Date().getDate() + "/" + (new Date().getMonth() + 1)+ "/" + new Date().getFullYear(); 
     return (
       <View style={styles.content}>
         {item.schedules.map((id, index) => 
           <>
-            {Date.parse('01/01/2011 '+id.start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+id.end) ? (
-              <Text style={styles.descriptionFocus}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
-            ):(
+            {/* caso a data já tenha passado */}
+            {Date.parse(dateActual + ' 00:00:00') > Date.parse(id.date + ' 00:00:00') &&
+              <Text style={styles.descriptionDisable}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+            }
+
+            {/* caso a data ainda vá acontecer */}
+            {Date.parse(dateActual + ' 00:00:00') < Date.parse(id.date + ' 00:00:00') &&
+              <Text style={styles.description}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+            }
+
+            {/* caso a data seja hoje */}
+            {Date.parse(dateActual + ' 00:00:00') == Date.parse(id.date + ' 00:00:00') &&
               <>
-                {Date.parse('01/01/2011 '+id.end) <= Date.parse('01/01/2011 '+hours) ?
-                    <Text style={styles.descriptionDisable}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
-                  :
-                    <Text style={styles.description}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
-                }
+                {Date.parse('01/01/2011 '+id.start) <= Date.parse('01/01/2011 '+hours) && Date.parse('01/01/2011 '+hours) < Date.parse('01/01/2011 '+id.end) ? (
+                  <Text style={styles.descriptionFocus}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+                ):(
+                  <>
+                    {Date.parse('01/01/2011 '+id.end) <= Date.parse('01/01/2011 '+hours) ?
+                        <Text style={styles.descriptionDisable}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+                      :
+                        <Text style={styles.description}>{id.start.split(":")[0] + ":" + id.start.split(":")[1] + " às " + id.end.split(":")[0] + ":" + id.end.split(":")[1] + " - " + id.description + " - " + id.responsible}</Text>
+                    }
+                  </>
+                )}
               </>
-            )}
+            }
           </>
         )}
       </View>
@@ -99,7 +105,7 @@ export default class AccordionClassroom extends Component {
       <Container>
         <Content padder style={{ backgroundColor: AppStyles.colour.background }}>
           <Accordion
-            dataArray={this.state.dataArray}
+            dataArray={this.props.data}
             animation={true}
             expanded={true}
             renderHeader={this._renderHeader}

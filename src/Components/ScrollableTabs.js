@@ -6,29 +6,56 @@ import material from '../../native-base-theme/variables/material';
 import AccordionClassroom from './Cards/AccordionClassroom';
 
 export default class ScrollableTabs extends Component {
-  render() {
-    return (
-        <StyleProvider style={getTheme(material)}>
-            <Content>
-                <Tabs renderTabBar={()=> <ScrollableTab />} >
-                    <Tab heading="2ª Feira">
-                        <AccordionClassroom />
-                    </Tab>
-                    <Tab heading="3ª Feira">
-                        <Text>2</Text>
-                    </Tab>
-                    <Tab heading="4ª Feira">
-                        <Text>3</Text>
-                    </Tab>
-                    <Tab heading="5ª Feira">
-                        <Text>4</Text>
-                    </Tab>
-                    <Tab heading="6ª Feira">
-                        <Text>5</Text>
-                    </Tab>
-                </Tabs>
-            </Content>
-        </StyleProvider>
-    );
+
+    state = {
+        dataArray : [
+            { title: "Sala 01", schedules: 
+              [
+                {date: "05/09/2019", start: "15:30:01", end: "17:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+                {date: "05/09/2019", start: "18:00:01", end: "18:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+                {date: "05/09/2019", start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
+              ]
+            },
+            { title: "Sala 02", schedules: 
+              [
+                {date: "05/09/2019", start: "15:30:00", end: "17:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+                {date: "05/09/2019", start: "18:00:00", end: "18:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+                {date: "05/09/2019", start: "18:30:00", end: "20:00:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+                {date: "05/09/2019", start: "20:00:00", end: "21:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"},
+                {date: "05/09/2019", start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
+              ]
+            }
+          ]
+    }
+
+    render() {
+        let day = new Date().getDay();
+        if(day == 0 || day == 6){
+            day = 1;
+        }
+        day -= 1;
+        return (
+            <StyleProvider style={getTheme(material)}>
+                <Content>
+                    <Tabs initialPage={day} renderTabBar={()=> <ScrollableTab />} >
+                        <Tab heading="2ª Feira">
+                            <AccordionClassroom data={this.state.dataArray}/>
+                        </Tab>
+                        <Tab heading="3ª Feira">
+                            <AccordionClassroom data={this.state.dataArray}/>
+                        </Tab>
+                        <Tab heading="4ª Feira">
+                            <AccordionClassroom data={this.state.dataArray}/>
+                        </Tab>
+                        <Tab heading="5ª Feira">
+                            <AccordionClassroom data={this.state.dataArray}/>
+                        </Tab>
+                        <Tab heading="6ª Feira">
+                            <AccordionClassroom data={this.state.dataArray}/>
+                        </Tab>
+                    </Tabs>
+                </Content>
+            </StyleProvider>
+        );
   }
 }
