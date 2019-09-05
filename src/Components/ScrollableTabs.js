@@ -25,8 +25,9 @@ export default class ScrollableTabs extends Component {
                 {date: "05/09/2019", start: "22:00:00", end: "22:30:00", description: "Introdução à Sistemas e Mídias Digitais", responsible: "Ticiana Linhares"}
               ]
             }
-          ]
-    }
+          ],
+        activeTab : 0
+    }   
 
     render() {
         let day = new Date().getDay();
@@ -34,10 +35,14 @@ export default class ScrollableTabs extends Component {
             day = 1;
         }
         day -= 1;
+        setTimeout(() => {
+            this.setState({ activeTab: day });
+        }, 0);
+        
         return (
             <StyleProvider style={getTheme(material)}>
                 <Content>
-                    <Tabs initialPage={day} renderTabBar={()=> <ScrollableTab />} >
+                    <Tabs initialPage={0} page={this.state.activeTab} renderTabBar={()=> <ScrollableTab />} >
                         <Tab heading="2ª Feira">
                             <AccordionClassroom data={this.state.dataArray}/>
                         </Tab>
