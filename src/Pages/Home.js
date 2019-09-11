@@ -18,7 +18,7 @@ export default class Home extends Component {
 
     componentDidMount = async () => {
         try {
-            await AsyncStorage.setItem('userType', 1);
+            await AsyncStorage.setItem('userType', '1'); // 1-aluno  ,  2-admin
         } catch (e) {
             console.log(e.message);
         }
@@ -28,9 +28,9 @@ export default class Home extends Component {
 
     render(){
         return(
-            <Container>
+            <>
                 {this.state.loading ?
-                    <>
+                    <Container>
                         <Toolbar 
                             title="Semana 05/08 à 09/08" 
                             textColor="#FFFFFF" 
@@ -45,11 +45,13 @@ export default class Home extends Component {
                         <Tabbar
                             active="Home"
                         />
-                    </>
+                    </Container>
                 :
-                    <Spinner color='blue' />
+                    <Container style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        <Spinner color='blue' />
+                    </Container>
                 }
-            </Container>
+            </>
         );
     }
 }
