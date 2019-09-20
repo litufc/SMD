@@ -42,7 +42,7 @@ export default class ScrollableTabs extends Component {
         return (
             <StyleProvider style={getTheme(material)}>
                 <Content>
-                    <Tabs initialPage={0} page={this.state.activeTab} renderTabBar={()=> <ScrollableTab />} >
+                    <Tabs renderTabBar={()=> <ScrollableTab />} >
                         <Tab heading="2ª Feira">
                             <AccordionClassroom data={this.state.dataArray}/>
                         </Tab>
